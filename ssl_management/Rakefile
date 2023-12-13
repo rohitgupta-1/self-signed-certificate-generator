@@ -1,0 +1,9 @@
+require File.expand_path('../config/application', __dir__)
+Rails.application.load_tasks
+
+task :test do
+  sh 'ruby ssl_management/certificate_generator.rb'
+  sh 'ruby ssl_management/web_server.rb &'
+  sleep 2 # Wait for the server to start
+  sh 'ruby ssl_management/test_connection_program.rb'
+end
